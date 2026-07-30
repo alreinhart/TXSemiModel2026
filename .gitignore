@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# THECB raw pulls -- large (up to ~55MB) and fully regeneratable by running
+# supply/01_scrape_thecb_data.R. Keep the cleaned supply/data/*.rds outputs instead.
+supply/data-raw/downloads/*.csv
+!supply/data-raw/downloads/.gitkeep
+
+# Never commit credentials
+secrets/
+*.env
+.Renviron
