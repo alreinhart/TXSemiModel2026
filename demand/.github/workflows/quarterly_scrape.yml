@@ -1,0 +1,95 @@
+name: Quarterly Semiconductor Jobs Scrape
+
+on:
+  # Run on first day of each quarter at 2 AM UTC
+  schedule:
+    - cron: '0 2 1 1,4,7,10 *'  # Q1, Q2, Q3, Q4
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      company:
+        description: 'Company to scrape (or "all")'
+        required: false
+        default: 'all'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.3.0'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
+      
+      - name: Cache R packages
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ hashFiles('**/DESCRIPTION') }}
+          restore-keys: |
+            ${{ runner.os }}-r-
+      
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c(
+            "rvest", "httr", "jsonlite", "DBI", "RSQLite",
+            "dplyr", "lubridate", "readr", "purrr", "stringr",
+            "glue", "xml2", "here"
+          ))'
+      
+      - name: Create data directories
+        run: |
+          mkdir -p data/exports
+          mkdir -p logs
+      
+      - name: Run scraper
+        run: |
+          if [ "${{ github.event.inputs.company }}" = "" ]; then
+            Rscript scrapers/main.R all
+          else
+            Rscript scrapers/main.R "${{ github.event.inputs.company }}"
+          fi
+      
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/ logs/
+          git diff --quiet && git diff --staged --quiet || (
+            git commit -m "Quarterly scrape: $(date +'%Y-%m-%d')" && 
+            git push
+          )
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: scrape-results-${{ github.run_number }}
+          path: |
+            data/exports/*.csv
+            logs/*.log
+          retention-days: 90
+      
+      - name: Create release (on schedule only)
+        if: github.event_name == 'schedule'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: quarterly-${{ github.run_number }}
+          release_name: Quarterly Scrape $(date +'%Y Q%q')
+          body: |
+            Automated quarterly scrape of semiconductor job postings.
+            
+            See attached artifacts for CSV exports and logs.
+          draft: false
+          prerelease: false
