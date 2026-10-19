@@ -146,7 +146,7 @@ phd_jobs <- all_jobs %>%
 
 ## Monthly Schedule
 
-### Option 1: GitHub Actions (Recommended)
+### Option 1: Windows Task Scheduler (current; see ARCHITECTURE.md)
 
 
 Just push to GitHub and it will run automatically on:

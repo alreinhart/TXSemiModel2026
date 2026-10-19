@@ -125,7 +125,7 @@ all_jobs <- scrape_all_companies()
 
 ## 🔄 Monthly Automation
 
-### GitHub Actions (Recommended)
+### Windows Task Scheduler (current)
 - Runs automatically on Jan 1, Apr 1, Jul 1, Oct 1
 - Can be manually triggered
 - Commits results back to repo
@@ -219,7 +219,7 @@ This project demonstrates:
 - Database design with SQLite
 - Error handling and logging
 - API pagination handling
-- GitHub Actions automation
+- Monthly Task Scheduler run (TexasSemiWFDModeling)
 - Modular R code structure
 - Data cleaning and normalization
 
@@ -267,7 +267,7 @@ After monthly runs, you'll have:
 | Custom Scrapers | 🟡 Templates |
 | Utilities | ✅ Complete |
 | Documentation | ✅ Complete |
-| GitHub Actions | ✅ Complete |
+| Monthly schedule | ✅ Task Scheduler |
 | Legal Docs | ✅ Complete |
 
 ## 📞 Support
