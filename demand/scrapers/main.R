@@ -358,7 +358,7 @@ scrape_company <- function(company_name, fetch_details = TRUE) {
 scrape_all_companies <- function(fetch_details = TRUE) {
   
   log_message("\n========================================")
-  log_message("STARTING QUARTERLY SCRAPE")
+  log_message("STARTING SCHEDULED SCRAPE")
   log_message(paste("Quarter:", get_current_quarter()$label))
   log_message("========================================\n")
   

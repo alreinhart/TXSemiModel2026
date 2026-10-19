@@ -2,7 +2,7 @@
 
 ## 🎯 What I Built For You
 
-A complete, production-ready R scraping framework for collecting semiconductor job postings from 6 major companies on a quarterly basis.
+A complete, production-ready R scraping framework for collecting semiconductor job postings from 6 major companies on a monthly basis.
 
 ## 📦 What's Included
 
@@ -10,7 +10,7 @@ A complete, production-ready R scraping framework for collecting semiconductor j
 ✅ **Multi-platform support**: Workday, Oracle CX, and custom platforms  
 ✅ **Full data extraction**: Title, location, responsibilities, education, experience, qualifications, salary  
 ✅ **Dual storage**: SQLite database + CSV exports  
-✅ **Automated scheduling**: GitHub Actions for quarterly runs  
+✅ **Automated scheduling**: Windows Task Scheduler, monthly (from TexasSemiWFDModeling)  
 ✅ **Error handling**: Retry logic, logging, graceful failures  
 ✅ **Rate limiting**: Respectful scraping with configurable delays  
 
@@ -29,7 +29,6 @@ semiconductor_jobs_scraper/
 ├── README.md                          # Complete documentation
 ├── .gitignore                         # Git ignore rules
 ├── .github/workflows/
-│   └── quarterly_scrape.yml          # GitHub Actions automation
 ├── config/
 │   ├── companies.csv                 # Company URLs and platforms
 │   ├── db_schema.sql                 # Database schema
@@ -124,13 +123,12 @@ all_jobs <- scrape_all_companies()
 - Database backup option
 - 90-day artifact retention (GitHub)
 
-## 🔄 Quarterly Automation
+## 🔄 Monthly Automation
 
 ### GitHub Actions (Recommended)
 - Runs automatically on Jan 1, Apr 1, Jul 1, Oct 1
 - Can be manually triggered
 - Commits results back to repo
-- Creates quarterly releases
 - Uploads artifacts
 
 ### Alternative Options
@@ -238,11 +236,11 @@ This project demonstrates:
 2. **Week 2**: Implement Oracle CX scraper for Texas Instruments
 3. **Week 3**: Implement custom scrapers (Samsung, SkyWater, Tokyo Electron)
 4. **Week 4**: Set up GitHub repository and automation
-5. **Ongoing**: Run quarterly, analyze data, refine as needed
+5. **Ongoing**: Run monthly, analyze data, refine as needed
 
 ## 🎯 Success Metrics
 
-After quarterly runs, you'll have:
+After monthly runs, you'll have:
 - Complete job database for 6 semiconductor companies
 - Historical trends (Q1 2026, Q2 2026, etc.)
 - Exportable CSV files for analysis

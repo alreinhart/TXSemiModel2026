@@ -8,8 +8,8 @@ Combines two data pipelines into one Shiny dashboard (`app.R`, at the repo root)
   programs at Texas public universities, community colleges, and TSTCs, pulled from the
   Texas Higher Education Coordinating Board (THECB).
 - **`demand/`** — semiconductor job postings scraped from Texas-area employer career
-  pages (Applied Materials, TI, Samsung, NXP, TSMC, and others), with quarterly
-  automated runs via GitHub Actions.
+  pages (Applied Materials, TI, Samsung, NXP, TSMC, and others), collected monthly
+  on the collection computer (scheduled from the TexasSemiWFDModeling repository).
 
 See `ARCHITECTURE.md` for the technical architecture of each half, and each subfolder's own
 README/instructions file for how to run its pipeline.
@@ -40,7 +40,6 @@ TXSemiModel/
     ├── scrapers/
     ├── config/
     ├── data/                    -- SQLite DB + CSV exports (gitignored, see demand/.gitignore)
-    └── .github/workflows/       -- quarterly automated scrape
 ```
 
 `supply/` and `demand/` are each self-contained R projects (open `supply/supply.Rproj`

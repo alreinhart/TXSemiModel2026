@@ -23,7 +23,15 @@ SCRAPER_CONFIG <- list(
   page_load_timeout = 20,       # seconds
   
   # User Agent
-  user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 SemiconductorJobsScraper/1.0 (+research@example.com)",
+  # Identifies the collector and a contact address to site operators. The
+  # address comes from the CONTACT_EMAIL environment variable (set in the
+  # analysis repository's .env, which the monthly run loads) so no personal
+  # address is stored in this public repository.
+  user_agent = paste0(
+    "SemiconductorJobsScraper/1.0 (UT Austin Texas Institute for Electronics workforce research; +",
+    if (nzchar(Sys.getenv("CONTACT_EMAIL"))) Sys.getenv("CONTACT_EMAIL") else "contact email not set",
+    ")"
+  ),
   
   # Pagination
   max_pages_per_company = 50,   # safety limit
@@ -99,7 +107,7 @@ EMAIL_CONFIG <- list(
   send_on_completion = FALSE
 )
 
-# Quarterly schedule
+# Legacy quarterly constant (collection is now monthly; see ARCHITECTURE.md)
 QUARTER_START_MONTHS <- c(1, 4, 7, 10)  # January, April, July, October
 
 # Create directories if they don't exist

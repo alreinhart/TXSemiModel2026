@@ -1,6 +1,6 @@
 # Semiconductor Jobs Database Scraper
 
-Automated quarterly scraping tool for semiconductor job postings across major companies.
+Monthly collection tool for semiconductor job postings across major companies.
 
 ## 📋 Project Overview
 
@@ -86,7 +86,6 @@ semiconductor_jobs_scraper/
 ├── logs/
 │   └── scrape_YYYYMMDD.log   # Daily logs
 └── docs/
-    ├── quarterly_schedule.md  # Scraping schedule
     └── legal_considerations.md # Legal/ethical notes
 ```
 
@@ -119,18 +118,11 @@ Exports are automatically saved to `data/exports/`:
 - `jobs_YYYYMMDD.csv` - All jobs from that run
 - `jobs_full_YYYYMMDD.csv` - Complete database export
 
-## 🔄 Quarterly Automation
+## 🔄 Monthly schedule
 
-### Option 1: GitHub Actions (Recommended)
-See `.github/workflows/quarterly_scrape.yml`
+Runs monthly (first Tuesday, 2:00 a.m.) through Windows Task Scheduler, registered from the TexasSemiWFDModeling repository (`scripts/register_monthly_task.ps1`). Each run is followed by a snapshot import that preserves posting history across runs.
 
-### Option 2: Cron Job
-```bash
-# Add to crontab (runs first day of quarter at 2am)
-0 2 1 1,4,7,10 * cd /path/to/project && Rscript scrapers/main.R
-```
-
-### Option 3: Manual
+Manual run:
 ```r
 source("scrapers/main.R")
 scrape_all_companies()

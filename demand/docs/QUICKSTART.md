@@ -144,11 +144,10 @@ phd_jobs <- all_jobs %>%
   filter(str_detect(min_education, "(?i)phd|doctorate"))
 ```
 
-## Quarterly Schedule
+## Monthly Schedule
 
 ### Option 1: GitHub Actions (Recommended)
 
-Already configured in `.github/workflows/quarterly_scrape.yml`
 
 Just push to GitHub and it will run automatically on:
 - January 1
@@ -265,7 +264,7 @@ dbGetQuery(con, "
 1. ✅ Run your first scrape
 2. ✅ Explore the database
 3. ✅ Customize configuration
-4. ✅ Set up quarterly automation
+4. ✅ Set up monthly automation
 5. ✅ Read legal considerations in `docs/legal_considerations.md`
 6. ✅ Push to GitHub for version control
 

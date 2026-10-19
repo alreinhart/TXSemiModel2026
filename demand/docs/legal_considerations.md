@@ -33,7 +33,8 @@ check_robots_txt(base_url)  # Implemented in utils.R
 
 ### 3. Proper User-Agent
 ```r
-user_agent = "SemiconductorJobsScraper/1.0 (+research@example.com)"
+# set in config/scraper_config.R; the contact address comes from CONTACT_EMAIL
+user_agent = "SemiconductorJobsScraper/1.0 (UT Austin Texas Institute for Electronics workforce research; +<CONTACT_EMAIL>)"
 ```
 
 ### 4. No Authentication Bypass
