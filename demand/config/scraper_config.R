@@ -24,12 +24,12 @@ SCRAPER_CONFIG <- list(
   
   # User Agent
   # Identifies the collector and a contact address to site operators. The
-  # address comes from the CONTACT_EMAIL environment variable (set in the
-  # analysis repository's .env, which the monthly run loads) so no personal
-  # address is stored in this public repository.
+  # address comes from CONTACT_EMAIL (set in the
+  # analysis repository's .env, which the monthly run loads), falling back
+  # to the project contact address.
   user_agent = paste0(
     "SemiconductorJobsScraper/1.0 (UT Austin Texas Institute for Electronics workforce research; +",
-    if (nzchar(Sys.getenv("CONTACT_EMAIL"))) Sys.getenv("CONTACT_EMAIL") else "contact email not set",
+    if (nzchar(Sys.getenv("CONTACT_EMAIL"))) Sys.getenv("CONTACT_EMAIL") else "alyssa.reinhart@austin.utexas.edu",
     ")"
   ),
   
